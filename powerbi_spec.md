@@ -127,6 +127,16 @@ Field assignments for the bar chart:
 
 ---
 
+## How to Open
+1. Download `mental_health_outcomes.pbix` from this repo
+2. Open Power BI Desktop
+3. File → Open → select the .pbix file
+4. The dashboard loads with all 4 pages ready to explore
+
+---
+
+## Dashboard Pages
+
 ## Page 1 — National Snapshot
 
 **Visual 1 — KPI cards (4 cards in a row)**
