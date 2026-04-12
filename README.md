@@ -98,3 +98,11 @@ See `powerbi_spec.md` for DAX measures and page-by-page build guide.
 
 ## Data Note
 Statistics Canada CCHS PUMF microdata is available free with registration. Individual respondent data requires signing a user agreement. This project uses simulated data built with an income-based probability model anchored to published CCHS prevalence statistics. All source figures are documented inline in `simulate_cchs.py`.
+
+---
+
+## Dashboard Screenshots
+![National Snapshot](screenshot_page1_national_snapshot.png)
+![Provincial Analysis](screenshot_page2_provincial_analysis.png)
+![Demographic Breakdown](screenshot_page3_demographic_breakdown.png)
+![Equity Analysis](screenshot_page4_equity_analysis.png)
