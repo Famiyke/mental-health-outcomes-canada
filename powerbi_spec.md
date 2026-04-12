@@ -243,3 +243,11 @@ Columns: Province, Atlantic Flag, Good MH %, Poor MH %, Unmet Need %, Respondent
 - Indigenous respondents n=251 — sufficient for group-level analysis
 - Income group strings use plain hyphens throughout (no en-dashes)
 - All binary columns (good_mh, conditions, unmet_need) are 0/1 integers
+
+---
+
+## Dashboard Screenshots
+![National Snapshot](screenshot_page1_national_snapshot.png.png)
+![Provincial Analysis](screenshot_page2_provincial_analysis.png.png)
+![Demographic Breakdown](screenshot_page3_demographic_breakdown.png.png)
+![Equity Analysis](screenshot_page4_equity_analysis.png.png)
