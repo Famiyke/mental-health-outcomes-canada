@@ -102,7 +102,7 @@ Statistics Canada CCHS PUMF microdata is available free with registration. Indiv
 ---
 
 ## Dashboard Screenshots
-![National Snapshot](screenshot_page1_national_snapshot.png)
-![Provincial Analysis](screenshot_page2_provincial_analysis.png)
-![Demographic Breakdown](screenshot_page3_demographic_breakdown.png)
-![Equity Analysis](screenshot_page4_equity_analysis.png)
+![National Snapshot](screenshot_page1_national_snapshot.png.png)
+![Provincial Analysis](screenshot_page2_provincial_analysis.png.png)
+![Demographic Breakdown](screenshot_page3_demographic_breakdown.png.png)
+![Equity Analysis](screenshot_page4_equity_analysis.png.png)
