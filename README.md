@@ -67,7 +67,7 @@ Power BI dashboard built in Power BI Desktop.
 - Page 3 — Demographic Breakdown: income gradient, age group, sex comparison
 - Page 4 — Equity Analysis: Indigenous gap, high-risk group, income × province matrix
 
-See `powerbi_spec.md` for DAX measures and page-by-page build guide.
+See `dashboard.md` for DAX measures and page-by-page build guide.
 
 ---
 
@@ -91,7 +91,7 @@ See `powerbi_spec.md` for DAX measures and page-by-page build guide.
 | `analysis.py` | National snapshot, province ranking, demographic breakdown, Indigenous gap, condition prevalence, high-risk group analysis, recommendations |
 | `sql_queries.sql` | 8 SQL queries covering prevalence, province ranking, demographic breakdowns, Indigenous gap, and equity analysis |
 | `mental_health_outcomes.pbix` | Power BI dashboard — download and open in Power BI Desktop |
-| `powerbi_spec.md` | Power BI build guide with DAX measures for all 4 dashboard pages |
+| `dashboard.md` | Power BI build guide with DAX measures for all 4 dashboard pages |
 | `equity_brief.md` | Plain-language mental health equity brief for a provincial director |
 
 ---
