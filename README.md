@@ -59,7 +59,7 @@ python analysis.py        # full analysis — cleaning, prevalence, equity gaps,
 
 Power BI dashboard built in Power BI Desktop.
 
-**Download:** `dashboard.md` from this repo and open in Power BI Desktop to interact with the full report.
+**Download:** `mental_health_outcomes.pbix` from this repo and open in Power BI Desktop to interact with the full report.
 
 **Dashboard pages:**
 - Page 1 — National Snapshot: KPI cards, condition prevalence bar chart, unmet need gauge
