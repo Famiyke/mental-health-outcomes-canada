@@ -1,4 +1,4 @@
-# Project 5: Provincial Mental Health Outcomes (CCHS PUMF)
+# Project 5: Synthetic Mental Health Outcomes Analytics
 
 > **DATA PROVENANCE:** This portfolio project uses simulated records informed by named Canadian public sources. All generated statistics, rankings, demographic differences, and savings models are illustrative rather than verified official estimates. Recommendations are hypothetical scenarios, not observed effects.
 
@@ -11,23 +11,23 @@
 ---
 
 ## Business Question
-What is the prevalence of mental health conditions across provinces and demographic groups, what predicts perceived mental health status, and where should provincial mental health investment be directed?
+How can an analyst build and quality-check a mental health reporting workflow, including stratified indicators, suppression of small groups, and responsible interpretation?
 
 ---
 
-## How to Get the Real CCHS Data
+## Official reference data for a separate, validated study
 1. Go to: https://www150.statcan.gc.ca/n1/en/catalogue/82M0013X
 2. Create a free Statistics Canada account
 3. Accept the user agreement
 4. Download the PUMF CSV (CCHS_PUMF_Annual_Component.csv)
 5. Download the data dictionary (codebook) alongside it
 6. Rename: `cchs_pumf.csv` and place in this folder
-7. Check the codebook to confirm variable names match constants in `simulate_cchs.py`
+7. Build a separate import, variable mapping and survey-weighted analysis workflow. `simulate_cchs.py` does not load or analyze the CCHS PUMF.
 
 ## How to Run (demo mode)
 ```bash
 pip install pandas numpy
-python simulate_cchs.py   # creates cchs_data.csv (~5,000 representative records)
+python simulate_cchs.py   # creates cchs_data.csv (5,000 generated records)
 python analysis.py        # full analysis — cleaning, prevalence, equity gaps, recommendations
 ```
 
@@ -37,11 +37,11 @@ python analysis.py        # full analysis — cleaning, prevalence, equity gaps,
 
 | Hat | What I Did |
 |-----|-----------|
-| Data Detective | Decoded CCHS coded variables (e.g., income quintile, valid skip codes), recoded Likert scales, handled "not stated" response codes, validated provincial sample sizes |
+| Data Detective | Validated generated indicator categories, checked missingness and compared simulated subgroup sample sizes |
 | SQL/Python Programmer | Calculated prevalence rates by province, age, sex, income, and Indigenous identity; cross-tabulated risk factor combinations; identified highest-need subgroups |
 | Dashboard Architect | Built Power BI dashboard with provincial map, demographic breakdowns, condition prevalence, and unmet need analysis |
 | Data Storyteller | Produced a plain-language mental health equity brief for a provincial mental health director |
-| Strategic Consultant | Identified three underserved groups for targeted provincial investment with specific program recommendations |
+| Reporting and interpretation | Documented limitations, denominator checks and minimum subgroup sample-size requirements |
 
 ---
 
@@ -49,21 +49,11 @@ python analysis.py        # full analysis — cleaning, prevalence, equity gaps,
 
 This project's Python/SQL outputs illustrate data processing, comparisons, modeling and reporting using generated records. The specific rates, rankings, cost figures and trends in the demonstration are **not verified official findings**. See the analysis scripts for the computations and the data limitations section below for interpretation requirements.
 
-## Live Dashboard
+## Power BI demonstration status
 
-Power BI report saved as a PBIX file; use Power BI Desktop to inspect it.
+**Historical PBIX file, not validated for public statistics.** The current `mental_health_outcomes.pbix` still holds an older generated dataset and misleading source labels. It has not yet been refreshed with the corrected generator. Do not use its figures or report pages as evidence of actual population disparities.
 
-**Download:** `mental_health_outcomes.pbix` from this repo and open in Power BI Desktop to interact with the full report.
-
-**Dashboard pages:**
-- Page 1 — National Snapshot: KPI cards, condition prevalence bar chart, unmet need gauge
-- Page 2 — Provincial Analysis: filled map, province ranking, Atlantic focus
-- Page 3 — Demographic Breakdown: income gradient, age group, sex comparison
-- Page 4 — Equity Analysis: Indigenous gap, high-risk group, income × province matrix
-
-See `dashboard.md` for DAX measures and page-by-page build guide.
-
----
+The corrected Python generator and analysis code are the authoritative reproducible demonstration. See [DASHBOARD_CORRECTION_GUIDE.md](DASHBOARD_CORRECTION_GUIDE.md) for exact Power BI Desktop fixes required before the historical report is suitable to showcase. Existing screenshots are retained as historical QA evidence but are not presented here as validated outputs.
 
 ## Interpretation and real-world next steps
 
@@ -90,11 +80,9 @@ Statistics Canada CCHS PUMF microdata is available free with registration. Indiv
 
 ---
 
-## Dashboard Screenshots
-![National Snapshot](screenshot_page1_national_snapshot.png.png)
-![Provincial Analysis](screenshot_page2_provincial_analysis.png.png)
-![Demographic Breakdown](screenshot_page3_demographic_breakdown.png.png)
-![Equity Analysis](screenshot_page4_equity_analysis.png.png)
+## Historical dashboard screenshots
+
+Screenshots remain in the repository for issue tracking. They are not displayed here because the associated PBIX needs updated data, source captions, small-cell suppression and a visible simulated-data banner.
 
 ---
 
@@ -102,5 +90,5 @@ Statistics Canada CCHS PUMF microdata is available free with registration. Indiv
 
 **Environment:** Python 3 with `pandas` and `numpy` installed. If working with the Excel files, install `openpyxl` as needed. Run the simulation script before the analysis commands shown above.
 
-**Important:** The scripts are designed for the generated datasets and expected column names. Downloading a public government table does **not** guarantee that it will run with these scripts unchanged; a schema-mapping and validation step is required for authentic external data. The repository has undergone a static documentation and code-reference audit, but a fresh environment execution and independent reconciliation with official datasets have not yet been completed.
+**Important:** The scripts are designed for the generated datasets and expected column names. Downloading a public government table does **not** guarantee that it will run with these scripts unchanged; a schema-mapping and validation step is required for authentic external data. Automated GitHub Actions tests have successfully executed the generated-data Python workflow. Independent reconciliation against actual Statistics Canada data has not been completed.
 
