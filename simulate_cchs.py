@@ -1,19 +1,11 @@
-"""
-Project 5 – simulate_cchs.py
-Builds a representative respondent-level dataset
-modeled on Statistics Canada CCHS PUMF microdata.
-~5,000 synthetic respondents anchored to published CCHS prevalence figures.
-Real data: https://www150.statcan.gc.ca/n1/en/catalogue/82M0013X
+"""Generate a synthetic mental-health analytics training dataset.
 
-Simulation model:
-- Income-based probability as primary driver of good MH
-  (anchored to published CCHS income quintile tables)
-- Province modifier applied as secondary adjustment
-  (anchored to CCHS 2022 provincial good/excellent MH summary)
-- Indigenous adjustment of -14pp
-  (anchored to CCHS First Nations supplement)
-- Unmet need: 4x higher for Indigenous respondents,
-  1.6x higher for low income
+All data and model parameters are illustrative assumptions. No records are
+from Statistics Canada CCHS, and no generated rates are representative.
+The simulation is designed to demonstrate data preparation and reporting,
+not to reproduce population differences or support health policy decisions.
+Reference for real survey research:
+https://www150.statcan.gc.ca/n1/en/catalogue/82M0013X
 """
 
 import pandas as pd
@@ -28,14 +20,14 @@ PROVINCES = {
 }
 
 # Province modifiers — relative to national average
-# Source: Statistics Canada CCHS 2022 Public Summary
+# Illustrative province modifiers, not CCHS estimates
 PROV_MOD = {
     "BC":+0.02, "AB":+0.03, "SK":+0.01, "MB":-0.01, "ON":+0.01,
     "QC":+0.02, "NB":-0.06, "NS":-0.04, "PE":-0.02, "NL":-0.05,
 }
 
 # Income-based good MH base probability
-# Source: CCHS published income quintile tables (lowest quintile ~52%, highest ~80%)
+# Illustrative probabilities, not calibrated to survey estimates
 INC_BASE = {
     "< $30K":     0.52,
     "$30K-$60K":  0.64,
@@ -57,16 +49,13 @@ sex_list   = np.random.choice(["Male","Female"],        N, p=[0.48, 0.52])
 
 records = []
 for i in range(N):
-    # Base probability from income, adjusted by province and Indigenous identity
+    # Illustrative probability model: income and province only.
     prob = INC_BASE[inc_list[i]] + PROV_MOD[prov_list[i]]
-    if indig_list[i] == "Yes":
-        prob -= 0.14   # Indigenous adjustment (CCHS First Nations supplement)
     prob = max(0.20, min(0.95, prob + np.random.normal(0, 0.03)))
     good_mh = int(np.random.random() < prob)
 
-    # Unmet need — Indigenous 4x, low income 1.6x
+    # Hypothetical unmet-need probability, with income modifier only.
     base_unmet = 0.05 if good_mh else 0.22
-    if indig_list[i] == "Yes":  base_unmet *= 4.0
     if inc_list[i] == "< $30K": base_unmet *= 1.6
     unmet = int(np.random.random() < min(0.95, base_unmet))
 
@@ -79,8 +68,11 @@ for i in range(N):
 
     mh_rating = (
         np.random.choice([1,2,3], p=[0.25,0.45,0.30]) if good_mh
-        else np.random.choice([3,4,5], p=[0.20,0.45,0.35])
+        else np.random.choice([4,5], p=[0.56,0.44])
     )
+
+    # Make indicator and self-rated categories mutually consistent.
+    assert good_mh == int(mh_rating in [1,2,3])
 
     records.append({
         "respondent_id":    i + 1,
@@ -104,7 +96,7 @@ for i in range(N):
 
 df = pd.DataFrame(records)
 df.to_csv("cchs_data.csv", index=False)
-print(f"Created cchs_data.csv  —  {len(df):,} respondents")
+print(f"Created cchs_data.csv  —  {len(df):,} synthetic demonstration records")
 print(f"Columns: {list(df.columns)}")
 
 # Verification summary
@@ -123,6 +115,7 @@ nl      = df[df.province=="NL"].good_mh.mean()*100
 print(f"\nNational good MH:       {nat:.1f}%")
 print(f"NB: {nb:.1f}%  NL: {nl:.1f}%  (both below national avg: {nb<nat and nl<nat})")
 print(f"Low-income poor MH ratio: {low_p:.1f}/{nat_p:.1f} = {low_p/nat_p:.1f}x")
-print(f"Indigenous unmet ratio:   {iu:.1f}/{nu:.1f} = {iu/nu:.1f}x")
-print(f"Indigenous good MH gap:   {ig:.1f}% vs {ng:.1f}% ({ng-ig:.1f}pp gap)")
-print(f"Anxiety {anx:.1f}% > Depression {dep:.1f}%: {anx>dep}")
+print("Identity-stratified figures are simulated examples only, not CCHS estimates.")
+print("No identity-specific health disparity is imposed by this generator.")
+print(f"Synthetic Anxiety {anx:.1f}%, Depression {dep:.1f}%")
+assert ((df["mh_rating"].isin([1,2,3]).astype(int) == df["good_mh"]).all())
