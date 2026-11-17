@@ -4,6 +4,10 @@ Data Detective → Programmer → Storyteller → Consultant
 Mental Health Outcomes — CCHS PUMF
 """
 
+# PORTFOLIO DATA NOTICE: All computed findings below use simulated/generated
+# analytical records, not verified official Canadian statistics. Numeric outputs
+# illustrate methods only; any program recommendations require source validation.
+
 import pandas as pd
 import numpy as np
 
@@ -130,36 +134,17 @@ print(f"  Unmet mental health need:{unmet_hr:.1%}")
 print(f"  Saw a MH provider:       {saw_provider:.1%}")
 
 # ── Recommendations ───────────────────────────────────────────────────────────
-print(f"\n{'─'*62}")
-print("STRATEGIC RECOMMENDATIONS")
-print(f"{'─'*62}")
+print("\\nILLUSTRATIVE INTERPRETATION AND NEXT STEPS")
+print("-" * 62)
 print("""
-  1. ATLANTIC AND RURAL ACCESS
-     NB and NL show the lowest rates of good mental
-     health in Canada. Combined with limited psychiatrist
-     supply, this creates a structural access gap.
-     Expand virtual mental health services with
-     provincial health card coverage in these regions.
+These results come from a generated portfolio dataset. They are not
+verified Canadian population or health-system estimates.
 
-  2. INCOME AND EDUCATION INTERSECTION
-     Low-income respondents without post-secondary
-     education report poor mental health at twice
-     the national rate and have the highest unmet need.
-     Community-based, subsidised counselling programs
-     (not just hospital referrals) are needed for this group.
-
-  3. INDIGENOUS MENTAL HEALTH EQUITY
-     The gap in both good mental health and unmet need
-     between Indigenous and non-Indigenous respondents
-     is the largest of any subgroup analysed.
-     Provinces should fund Indigenous-led mental health
-     services and meet existing UNDRIP commitments.
-
-  4. ANXIETY TRAJECTORY
-     Anxiety overtook depression as the most commonly
-     reported condition in recent CCHS cycles.
-     Structured online CBT programs with low-cost
-     access could serve the majority of mild-to-moderate
-     anxiety cases before they escalate to crisis.
+Potential next steps for a real-world study:
+1. Obtain and validate authoritative source data and definitions.
+2. Recalculate differences, including denominators and uncertainty.
+3. Work with clinical, community or operational partners to assess
+   feasibility and avoid treating associations as causal effects.
+4. Treat cost differences and savings as sensitivity-tested scenarios,
+   not realized outcomes or established policy recommendations.
 """)
-print(sep)
