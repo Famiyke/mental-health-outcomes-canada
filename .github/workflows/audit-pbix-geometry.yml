@@ -1,0 +1,31 @@
+name: Audit PBIX page geometry
+on:
+  push:
+    paths: ['.github/workflows/audit-pbix-geometry.yml']
+  workflow_dispatch:
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enumerate native layout and optional banner locations
+        run: |
+          python - <<'PY'
+          import glob,zipfile,json
+          for path in glob.glob('*.pbix'):
+              with zipfile.ZipFile(path) as z:
+                  doc=json.loads(z.read('Report/Layout').decode('utf-16-le'))
+                  print('PBIX',path)
+                  print('REPORT_KEYS', list(doc.keys()))
+                  for pg in doc.get('sections',[]):
+                      print('PAGE',pg.get('displayName'),'WIDTH',pg.get('width'),'HEIGHT',pg.get('height'))
+                      for i,v in enumerate(pg.get('visualContainers',[])):
+                          cfg=json.loads(v.get('config','{}'))
+                          pos=cfg.get('layouts',[{}])[0].get('position',{})
+                          typ=cfg.get('singleVisual',{}).get('visualType','')
+                          texts=[]
+                          for obj in cfg.get('singleVisual',{}).get('objects',{}).get('general',[]):
+                              for p in obj.get('properties',{}).get('paragraphs',[]):
+                                  texts.extend(str(x.get('value','')) for x in p.get('textRuns',[]))
+                          print('  VIS',i,'type',typ,'pos',str(pos)[:200],'texts',texts[:4])
+          PY
