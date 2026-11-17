@@ -1,7 +1,7 @@
 """
 Project 5 – analysis.py
 Data Detective → Programmer → Storyteller → Consultant
-Mental Health Outcomes — CCHS PUMF
+Mental Health Outcomes — Synthetic Demo
 """
 
 # PORTFOLIO DATA NOTICE: All computed findings below use simulated/generated
@@ -15,18 +15,20 @@ df  = pd.read_csv("cchs_data.csv")
 sep = "=" * 62
 
 print(f"\n{sep}")
-print("  PROJECT 5 — PROVINCIAL MENTAL HEALTH OUTCOMES (CCHS)")
+print("  PROJECT 5 — SYNTHETIC MENTAL HEALTH OUTCOMES")
 print(f"{sep}")
 
 # ── Profile ───────────────────────────────────────────────────────────────────
-print(f"\n  Respondents: {len(df):,}")
+print(f"\n  Generated records: {len(df):,}")
 print(f"  Provinces:   {sorted(df['province'].unique())}")
 print(f"  Age groups:  {sorted(df['age_group'].unique())}")
 
 # Decode MH rating scale
 mh_map = {1:"Excellent",2:"Very Good",3:"Good",4:"Fair",5:"Poor"}
 df["mh_label"] = df["mh_rating"].map(mh_map)
-df["poor_mh"]  = (df["mh_rating"] >= 4).astype(int)
+df["good_mh"] = df["mh_rating"].isin([1,2,3]).astype(int)
+df["poor_mh"] = df["mh_rating"].isin([4,5]).astype(int)
+assert ((df["good_mh"] + df["poor_mh"]) == 1).all(), "Mental-health ratings must be exhaustive"
 
 # ── National Snapshot ─────────────────────────────────────────────────────────
 print(f"\n{'─'*62}")
@@ -38,14 +40,15 @@ poor_pct  = df["poor_mh"].mean() * 100
 unmet_pct = df["unmet_need"].mean() * 100
 any_cond  = df["has_any_condition"].mean() * 100
 
-print(f"\n  Good/Excellent mental health:   {good_pct:.1f}%")
+print(f"\n  Good/Very good/Excellent MH:   {good_pct:.1f}%")
 print(f"  Fair/Poor mental health:        {poor_pct:.1f}%")
 print(f"  Unmet mental health need:       {unmet_pct:.1f}%")
 print(f"  Have at least one condition:    {any_cond:.1f}%")
+assert abs(good_pct + poor_pct - 100.0) < 1e-9, "Category percentages must sum to 100%"
 
 # ── Province Ranking ──────────────────────────────────────────────────────────
 print(f"\n{'─'*62}")
-print("PROVINCE RANKING — % with Good/Excellent Mental Health")
+print("SIMULATED PROVINCE COMPARISON — Good or Better Mental Health")
 print(f"{'─'*62}")
 
 prov = (df.groupby("province")
@@ -59,7 +62,10 @@ nat_avg = df["good_mh"].mean()
 print(f"\n  {'Province':>10} {'Good MH%':>10} {'Fair/Poor%':>12} {'Unmet Need%':>13} {'n':>5}")
 print(f"  {'─'*10} {'─'*10} {'─'*12} {'─'*13} {'─'*5}")
 for _, r in prov.iterrows():
-    below = " ◄ BELOW AVG" if r["good_mh"] < nat_avg else ""
+    if r["n"] < 30:
+        print(f"  {r['province']:>10}  SUPPRESSED: fewer than 30 synthetic records (n={int(r['n'])})")
+        continue
+    below = " ◄ BELOW SIMULATED AVG" if r["good_mh"] < nat_avg else ""
     print(f"  {r['province']:>10} {r['good_mh']:>9.1%} {r['poor_mh']:>11.1%}"
           f" {r['unmet']:>12.1%} {r['n']:>5,}{below}")
 
@@ -86,20 +92,12 @@ for _, r in inc.iterrows():
     bar = "█" * int(r["good_mh"] * 30)
     print(f"  {r['income_group']:>15}  {r['good_mh']:>5.1%}  {bar}")
 
-# ── Indigenous Mental Health Gap ──────────────────────────────────────────────
-print(f"\n{'─'*62}")
-print("INDIGENOUS MENTAL HEALTH GAP")
+# ── Ethical handling of simulated demographic labels ─────────────────────────
+print(f"\\n{'─'*62}")
+print("DEMOGRAPHIC DATA LIMITATION")
 print(f"{'─'*62}")
-
-indig = df.groupby("indigenous")["good_mh"].mean()
-indig_good = indig.get("Yes", np.nan)
-non_good   = indig.get("No", np.nan)
-
-print(f"\n  Indigenous respondents:     {indig_good:.1%} good/excellent MH")
-print(f"  Non-Indigenous respondents: {non_good:.1%} good/excellent MH")
-print(f"  Gap:                        {non_good - indig_good:.1%} percentage points")
-print(f"  Unmet need — Indigenous:    {df[df['indigenous']=='Yes']['unmet_need'].mean():.1%}")
-print(f"  Unmet need — Non-Indigenous:{df[df['indigenous']=='No']['unmet_need'].mean():.1%}")
+print("Identity-based comparisons are not presented as population disparities.")
+print("Synthetic labels are not survey-weighted or suitable for policy inference.")
 
 # ── Condition Prevalence ──────────────────────────────────────────────────────
 print(f"\n{'─'*62}")
@@ -134,7 +132,7 @@ print(f"  Unmet mental health need:{unmet_hr:.1%}")
 print(f"  Saw a MH provider:       {saw_provider:.1%}")
 
 # ── Recommendations ───────────────────────────────────────────────────────────
-print("\\nILLUSTRATIVE INTERPRETATION AND NEXT STEPS")
+print("\nILLUSTRATIVE INTERPRETATION AND NEXT STEPS")
 print("-" * 62)
 print("""
 These results come from a generated portfolio dataset. They are not
