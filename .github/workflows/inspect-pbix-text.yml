@@ -1,0 +1,30 @@
+name: Inspect Power BI original report text
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/inspect-pbix-text.yml']
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect report text and data model packaging
+        run: |
+          python - <<'PY'
+          import zipfile,json,glob
+          for file in glob.glob('*.pbix'):
+            print('FILE',file)
+            with zipfile.ZipFile(file) as z:
+              print('PARTS',z.namelist())
+              layout=json.loads(z.read('Report/Layout').decode('utf-16-le'))
+              for page in layout.get('sections',[]):
+                print('PAGE',page.get('displayName'), 'VISUAL COUNT',len(page.get('visualContainers',[])))
+                for i,v in enumerate(page.get('visualContainers',[])):
+                  conf=json.loads(v.get('config','{}'))
+                  visual=conf.get('singleVisual',{})
+                  props=visual.get('vcObjects',{})
+                  t=visual.get('visualType','')
+                  if t in ('textbox','textBox') or i<3:
+                    print('VIS',i, 'TYPE',t,'TITLE?', str(props)[:1000])
+                    print('CONFIG',json.dumps(conf,ensure_ascii=False)[:4000])
+          PY
