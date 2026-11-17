@@ -2,6 +2,10 @@
 
 **Status: The PBIX is structurally readable, but must not be presented as an official CCHS report.** The four page screenshots and the PBIX layout were inspected on 17 November 2026.
 
+## Current generator differs from the archived PBIX
+
+The Python simulation and analysis were corrected on 17 November 2026. The committed PBIX and screenshots still represent the old generated records. Do not relabel the old results as corrected. **Regenerate `cchs_data.csv`, refresh every Power BI query, update visuals, and confirm filter/measure results before republishing.** The updated simulation removes imposed identity-based disparities and makes self-rated good-or-better versus fair/poor categories exhaustive.
+
 ## Required corrections in Power BI Desktop
 
 1. Put a high-contrast banner at the top of **every page**: **SIMULATED DATA — DEMONSTRATION ONLY. NOT STATISTICS CANADA CCHS RESULTS.**
