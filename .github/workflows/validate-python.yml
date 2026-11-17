@@ -38,6 +38,7 @@ jobs:
             python analysis.py
           elif [[ -f simulate_cchs.py ]]; then
             python simulate_cchs.py
+            python validate_demo.py
             python analysis.py
           elif [[ -f simulate_manitoba.py ]]; then
             python simulate_manitoba.py
