@@ -1,5 +1,12 @@
 # Project 5: Synthetic Mental Health Outcomes Analytics
 
+## Reviewed interactive dashboard (no Power BI login required)
+
+[**Open the Corrected synthetic mental health visualization**](https://famiyke.github.io/health-data-portfolio/dashboards/mental-health.html)
+
+This version uses the corrected 5,000-record generator, consistent rating groups, suppressed small provincial groups and no identity-disparity comparison. The web dashboard is distinct from the older PBIX or Tableau visualization. Those legacy files were **not edited or republished** and should not be used as validated outputs.
+
+
 > **DATA PROVENANCE:** This portfolio project uses simulated records informed by named Canadian public sources. All generated statistics, rankings, demographic differences, and savings models are illustrative rather than verified official estimates. Recommendations are hypothetical scenarios, not observed effects.
 
 **Domain:** Mental Health / Population Health
