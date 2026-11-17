@@ -1,0 +1,24 @@
+name: Inspect Power BI report data labeling
+on:
+  push:
+    paths: ['.github/workflows/audit-powerbi-labels.yml']
+  workflow_dispatch:
+jobs:
+  inspect-labels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect PBIX page content
+        run: |
+          python - <<'PY'
+          import zipfile,glob,json
+          for path in glob.glob('*.pbix'):
+              with zipfile.ZipFile(path) as z:
+                  layout=json.loads(z.read('Report/Layout').decode('utf-16-le'))
+                  print('REPORT',path,'PAGE COUNT',len(layout.get('sections',[])))
+                  for section in layout.get('sections',[]):
+                      serialized=json.dumps(section,ensure_ascii=False).lower()
+                      print('PAGE',section.get('displayName'),'VISUALS',len(section.get('visualContainers',[])),'SIMULATION DISCLOSURE TERMS',any(word in serialized for word in ('simulated','synthetic','demonstration data','not official')))
+              print('This is a structural text search, not a visual Power BI Desktop inspection.')
+          PY
