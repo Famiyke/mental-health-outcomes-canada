@@ -28,7 +28,8 @@ How can an analyst build and quality-check a mental health reporting workflow, i
 ```bash
 pip install pandas numpy
 python simulate_cchs.py   # creates cchs_data.csv (5,000 generated records)
-python analysis.py        # full analysis — cleaning, prevalence, equity gaps, recommendations
+python validate_demo.py   # checks category consistency and flags small groups
+python analysis.py        # illustrative, unweighted analyses with subgroup suppression
 ```
 
 ---
