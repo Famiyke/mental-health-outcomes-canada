@@ -1,0 +1,45 @@
+name: Export corrected Power BI refresh dataset
+on:
+  push:
+    paths:
+      - 'simulate_cchs.py'
+      - 'validate_demo.py'
+      - '.github/workflows/export-corrected-csv.yml'
+  workflow_dispatch:
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install pandas numpy
+      - name: Generate corrected records and run validation
+        run: |
+          python simulate_cchs.py
+          python validate_demo.py
+          python analysis.py > corrected-analysis-summary.txt
+      - name: Add dataset provenance file
+        run: |
+          cat > DATASET_README.txt <<'EOF'
+          SYNTHETIC DATA: DEMONSTRATION ONLY
+          Generated from simulate_cchs.py, 5,000 fictional records.
+          Not a Statistics Canada CCHS dataset or population sample.
+          The derived good_mh flag is consistent with mh_rating 1-3.
+          The previous forced identity-related differences are removed.
+          Do not draw population or subgroup conclusions from this sample.
+          Small subgroups should be suppressed in reports.
+          To use in Power BI Desktop, replace the old CSV source with cchs_data.csv,
+          refresh, recalculate DAX, remove misleading source labels and add
+          a visible simulated-data disclaimer on every report page.
+          EOF
+      - uses: actions/upload-artifact@v4
+        with:
+          name: corrected-mental-health-dataset
+          path: |
+            cchs_data.csv
+            DATASET_README.txt
+            corrected-analysis-summary.txt
