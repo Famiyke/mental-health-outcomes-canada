@@ -95,3 +95,12 @@ Statistics Canada CCHS PUMF microdata is available free with registration. Indiv
 ![Provincial Analysis](screenshot_page2_provincial_analysis.png.png)
 ![Demographic Breakdown](screenshot_page3_demographic_breakdown.png.png)
 ![Equity Analysis](screenshot_page4_equity_analysis.png.png)
+
+---
+
+## Reproducibility and execution status
+
+**Environment:** Python 3 with `pandas` and `numpy` installed. If working with the Excel files, install `openpyxl` as needed. Run the simulation script before the analysis commands shown above.
+
+**Important:** The scripts are designed for the generated datasets and expected column names. Downloading a public government table does **not** guarantee that it will run with these scripts unchanged; a schema-mapping and validation step is required for authentic external data. The repository has undergone a static documentation and code-reference audit, but a fresh environment execution and independent reconciliation with official datasets have not yet been completed.
+
