@@ -45,21 +45,13 @@ python analysis.py        # full analysis — cleaning, prevalence, equity gaps,
 
 ---
 
-## Illustrative Findings From Generated Data
+## Illustrative analytical outputs
 
-1. **NB and NL rank lowest nationally for good mental health.** NB reports good/excellent mental health at 61.0% — the lowest of any province. NL follows at 62.2% and NS at 63.1%. All three sit below the national average of 66.8%. Atlantic provinces have a structural mental health access gap linked to limited psychiatrist supply and rural geography.
-
-2. **Income is the strongest predictor of poor mental health.** Low-income respondents (under $30K) report good mental health at 51.7% — compared to 80.4% for those earning over $100K. Low-income respondents report poor mental health at 1.5x the national rate. The gap reflects both direct financial stress and reduced access to care.
-
-3. **Indigenous unmet mental health need is 4.6x higher than non-Indigenous.** Indigenous respondents report good mental health at 54.6% versus 67.4% for non-Indigenous respondents — a 12.8 percentage point gap. Their unmet mental health need (53.8%) is 4.6x higher than non-Indigenous respondents (11.7%). This is the largest equity gap in the dataset.
-
-4. **Anxiety overtook depression as the most prevalent condition.** Anxiety (12.0%) exceeds depression (9.4%) in this dataset, consistent with recent CCHS trend data showing anxiety disorders growing faster than any other mental health condition since 2015.
-
----
+This project's Python/SQL outputs illustrate data processing, comparisons, modeling and reporting using generated records. The specific rates, rankings, cost figures and trends in the demonstration are **not verified official findings**. See the analysis scripts for the computations and the data limitations section below for interpretation requirements.
 
 ## Live Dashboard
 
-Power BI dashboard built in Power BI Desktop.
+Power BI report saved as a PBIX file; use Power BI Desktop to inspect it.
 
 **Download:** `mental_health_outcomes.pbix` from this repo and open in Power BI Desktop to interact with the full report.
 
@@ -73,17 +65,9 @@ See `dashboard.md` for DAX measures and page-by-page build guide.
 
 ---
 
-## Hypothetical Recommendations
+## Interpretation and real-world next steps
 
-1. **Atlantic access expansion.** NB, NL, and NS all rank in the bottom three nationally. Expand virtual mental health services with provincial health card coverage and remove referral gatekeeping for online CBT programs in these provinces.
-
-2. **Low-income subsidised counselling.** Low-income respondents have the highest unmet need but the lowest provider contact rates. Community-based, subsidised counselling programs — not hospital referrals — are the right delivery model for this group.
-
-3. **Indigenous-led mental health services.** The 4.6x unmet need gap between Indigenous and non-Indigenous respondents is the largest equity gap in the dataset. Provinces must fund Indigenous-led mental health services and honour existing UNDRIP commitments. Referrals to mainstream services are not sufficient.
-
-4. **Anxiety-first CBT programs.** Anxiety disorders are now more prevalent than depression in this dataset. Structured online CBT programs with low-cost or no-cost access can serve mild-to-moderate anxiety cases before they escalate to crisis, reducing both suffering and system demand.
-
----
+Use the simulated findings to demonstrate analytical methods, not to rank actual jurisdictions or recommend clinical or policy interventions. A real decision requires matched official data, documented definitions, relevant uncertainty, and clinical or operational stakeholder review. Financial scenarios must include assumptions, costs and sensitivity analysis.
 
 ## Files
 
