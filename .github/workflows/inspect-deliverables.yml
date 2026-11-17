@@ -1,0 +1,49 @@
+name: Inspect dashboard and workbook structure
+on:
+  push:
+    paths:
+      - '.github/workflows/inspect-deliverables.yml'
+  workflow_dispatch:
+jobs:
+  structural-inspection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install workbook reader
+        run: pip install openpyxl
+      - name: Examine deliverables
+        shell: bash
+        run: |
+          python - <<'PY'
+          import glob, zipfile, json
+          from openpyxl import load_workbook
+          for path in glob.glob('*.xlsx'):
+              print('WORKBOOK:',path, flush=True)
+              wb=load_workbook(path,data_only=False,read_only=False)
+              for ws in wb.worksheets:
+                  formulas=sum(isinstance(c.value,str) and c.value.startswith('=') for row in ws for c in row)
+                  print(f'  Sheet: {ws.title} rows={ws.max_row} cols={ws.max_column} formulas={formulas} charts={len(ws._charts)}')
+              wb.close()
+          for path in glob.glob('*.pbix'):
+              print('POWERBI:',path, flush=True)
+              with zipfile.ZipFile(path) as z:
+                  names=z.namelist()
+                  print('  Parts:', ', '.join(names[:22]))
+                  for name in ('Report/Layout','Report/StaticResources/RegisteredResources','DataMashup'):
+                      if name in names:
+                          print('  Found:',name, 'bytes=',z.getinfo(name).file_size)
+                  if 'Report/Layout' in names:
+                      raw=z.read('Report/Layout')
+                      try:
+                          layout=json.loads(raw.decode('utf-16-le'))
+                          sections=layout.get('sections',[])
+                          print('  Pages=',len(sections))
+                          for sec in sections:
+                              print('  Page:',sec.get('displayName','unnamed'), 'visuals=',len(sec.get('visualContainers',[])))
+                      except Exception as exc:
+                          print('  Layout parsing limited:',str(exc)[:200])
+          PY
