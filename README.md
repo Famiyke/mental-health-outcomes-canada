@@ -1,8 +1,10 @@
 # Project 5: Provincial Mental Health Outcomes (CCHS PUMF)
 
+> **DATA PROVENANCE:** This portfolio project uses simulated records informed by named Canadian public sources. All generated statistics, rankings, demographic differences, and savings models are illustrative rather than verified official estimates. Recommendations are hypothetical scenarios, not observed effects.
+
 **Domain:** Mental Health / Population Health
 **Tools:** Python · SQL · Power BI
-**Real Data Source:** Statistics Canada — CCHS Public Use Microdata File
+**Public reference source (distinct from simulated analysis data):** Statistics Canada — CCHS Public Use Microdata File
 **Download:** https://www150.statcan.gc.ca/n1/en/catalogue/82M0013X
 (Free — registration and user agreement required)
 
@@ -43,7 +45,7 @@ python analysis.py        # full analysis — cleaning, prevalence, equity gaps,
 
 ---
 
-## Key Findings
+## Illustrative Findings From Generated Data
 
 1. **NB and NL rank lowest nationally for good mental health.** NB reports good/excellent mental health at 61.0% — the lowest of any province. NL follows at 62.2% and NS at 63.1%. All three sit below the national average of 66.8%. Atlantic provinces have a structural mental health access gap linked to limited psychiatrist supply and rural geography.
 
@@ -71,7 +73,7 @@ See `dashboard.md` for DAX measures and page-by-page build guide.
 
 ---
 
-## Strategic Recommendations
+## Hypothetical Recommendations
 
 1. **Atlantic access expansion.** NB, NL, and NS all rank in the bottom three nationally. Expand virtual mental health services with provincial health card coverage and remove referral gatekeeping for online CBT programs in these provinces.
 
@@ -96,7 +98,10 @@ See `dashboard.md` for DAX measures and page-by-page build guide.
 
 ---
 
-## Data Note
+## Data Provenance and Limitations
+
+The respondent records are simulated, not actual CCHS PUMF respondents. Provincial, income, and Indigenous identity comparisons are illustrative, not survey estimates. They must not be generalized without actual survey weights, variance calculations, and careful validation of geography and population coverage.
+
 Statistics Canada CCHS PUMF microdata is available free with registration. Individual respondent data requires signing a user agreement. This project uses simulated data built with an income-based probability model anchored to published CCHS prevalence statistics. All source figures are documented inline in `simulate_cchs.py`.
 
 ---
